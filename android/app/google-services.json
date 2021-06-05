@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "187478354689",
+    "project_id": "anywhere-auction-1f3bb",
+    "storage_bucket": "anywhere-auction-1f3bb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:187478354689:android:d6b882903d8acde4bb0900",
+        "android_client_info": {
+          "package_name": "com.example.anywhere_auction"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "187478354689-815v6n3ueq9q2p8ikpprea4ibnngpuab.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.anywhere_auction",
+            "certificate_hash": "7ba3cc818ca4b08be22e582e9c55c0b742fd3125"
+          }
+        },
+        {
+          "client_id": "187478354689-885urbn9o6f7rsu5usolcehk4hoknkur.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHvVAbvyMWH9yoGeMRHaM33Micv4F3iG8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "187478354689-885urbn9o6f7rsu5usolcehk4hoknkur.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:187478354689:android:085c61a33b83a8b9bb0900",
+        "android_client_info": {
+          "package_name": "com.example.anywhere_auctions"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "187478354689-885urbn9o6f7rsu5usolcehk4hoknkur.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHvVAbvyMWH9yoGeMRHaM33Micv4F3iG8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "187478354689-885urbn9o6f7rsu5usolcehk4hoknkur.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
