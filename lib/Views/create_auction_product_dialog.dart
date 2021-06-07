@@ -52,18 +52,18 @@ class _ProductCreationDialogState extends State<ProductCreationDialog> {
     });
   }
 
-  int calculateTotalAuctionTime(){
-    // print(DateFormat("dd-MM-yyyy-HH-mm").format(_date));
-    // print(_time.hour);
-    // print(_time.minute);
-    // print(DateTime(_date.year, _date.month, _date.day-1));
-    DateTime EndDate = DateTime(_date.year,_date.month,_date.day,_time.hour,_time.minute);
-    final difference = EndDate.difference(DateTime.now()).inMinutes;
-    // print(DateFormat("dd-MM-yyyy-HH-mm").format(DateTime(_date.year,_date.month,_date.day,_time.hour,_time.minute)));
-    // print(difference);
-    return difference;  // return the miniute amount
-    // print("${difference~/(60*24)} day ${difference~/60} hours and ${difference%60} miniutes");
-  }
+  // int calculateTotalAuctionTime(){
+  //   // print(DateFormat("dd-MM-yyyy-HH-mm").format(_date));
+  //   // print(_time.hour);
+  //   // print(_time.minute);
+  //   // print(DateTime(_date.year, _date.month, _date.day-1));
+  //   DateTime EndDate = DateTime(_date.year,_date.month,_date.day,_time.hour,_time.minute);
+  //   final difference = EndDate.difference(DateTime.now()).inMinutes;
+  //   // print(DateFormat("dd-MM-yyyy-HH-mm").format(DateTime(_date.year,_date.month,_date.day,_time.hour,_time.minute)));
+  //   // print(difference);
+  //   return difference;  // return the miniute amount
+  //   // print("${difference~/(60*24)} day ${difference~/60} hours and ${difference%60} miniutes");
+  // }
 
   Future<int> getTotalProductsCount() async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('products').get();

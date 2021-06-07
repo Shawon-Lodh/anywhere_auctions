@@ -167,6 +167,7 @@ class _HomePageDetialsState extends State<HomePageDetials> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
+                                  padding: EdgeInsets.all(2),
                                   decoration: BoxDecoration(color: Colors.red),
                                   child: Row(
                                     children: [
@@ -174,41 +175,43 @@ class _HomePageDetialsState extends State<HomePageDetials> {
                                         "Bids : ",
                                         style: TextStyle(
                                             fontWeight: FontWeight.w500,
-                                            fontSize: 12),
-                                      ),
-                                      SizedBox(
-                                        width: 10,
+                                            fontSize: 12,color: Colors.white),
                                       ),
                                       Text(
                                         "${totalBidCount.data}",
                                         style: TextStyle(
                                             fontWeight: FontWeight.w500,
-                                            fontSize: 12),
+                                            fontSize: 12,color: Colors.white),
                                       ),
                                     ],
                                   ),
                                 ),
-                                Container(
-                                  decoration:
-                                  BoxDecoration(color: Colors.yellow),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        remainingTime,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 12),
+                                Row(
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.all(2),
+                                      decoration:
+                                      BoxDecoration(color: Colors.yellow),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            remainingTime,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 12),
+                                          ),
+                                          SizedBox(
+                                            width: 2,
+                                          ),
+                                        ],
                                       ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Image.asset(
-                                        "assets/images/timer.gif",
-                                        height: 20.0,
-                                        width: 20.0,
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                    Image.asset(
+                                      "assets/images/timer.gif",
+                                      height: 20.0,
+                                      width: 20.0,
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),

@@ -21,38 +21,6 @@ class _HomePageState extends State<HomePage> {
   int currentIndex;
   GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  Future showData() async {
-
-    QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('bids').where("product_id", isEqualTo : 2).get();
-    print(snapshot.docs[0].data());
-    // QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('products').where("products_created_by", isEqualTo : 1).get();
-    // print(querySnapshot.size);
-    // if(querySnapshot.docs.length>0)
-    //   {
-    //     print(querySnapshot.docs);
-    //   }
-
-    // QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('products').get();
-    // print(querySnapshot.docs[0].id);
-    // QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('products').where("products_id", isEqualTo : 2).get();
-    // print(snapshot.docs[0].id);
-    // await FirebaseFirestore.instance.collection('products').doc("w10C7Mr9ufoTkJ7TH6dB").update({
-    //   "products_auction_price": 900
-    // });
-    // if (snapshot.docs.isNotEmpty) await snapshot.docs[0]
-    //     .reference
-    //     .update('products_auction_price', );
-    // Firestore.instance
-    //     .collection('products')
-    //     .document(snapshot.docs[0].id)
-    //     .updateData({
-    //   "IsNewUser":"1"
-    // }).then((result){
-    //   print("new USer true");
-    // }).catchError((onError){
-    //   print("onError");
-    // });
-  }
   
   @override
   void initState(){
@@ -131,7 +99,6 @@ class _HomePageState extends State<HomePage> {
                 context: context,
                 barrierDismissible: false,
                 builder: (context) {
-                  showData();
                   return ProductCreationDialog();
                 });
           },

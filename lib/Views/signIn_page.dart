@@ -170,7 +170,6 @@ class _SignInState extends State<SignIn> {
                         }else if(!previousLoggedIn){
                           _saveUsersData(userCount+1);
                         }
-                        // Get.to(HomePage(), arguments: [userData]);
                         setData();
                         Navigator.pushAndRemoveUntil(
                           context,
