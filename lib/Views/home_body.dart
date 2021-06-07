@@ -19,11 +19,11 @@ class _HomePageDetialsState extends State<HomePageDetials> {
 
 
   checkForRemainingAuctionEndTime(DateTime auctionEndTime){
-    int day =0;
+    int day = 0;
     int hour = 0;
     int minute = 0;
     // DateTime endDate = DateTime.parse(singleProductDoc["products_auction_TotalTime"].toDate().toString());
-    final difference = auctionEndTime.difference(DateTime.now()).inMinutes;
+    int difference = auctionEndTime.difference(DateTime.now()).inMinutes;
     // print(endDate);
     print(difference);
     if(difference/(60*24) == 0){
