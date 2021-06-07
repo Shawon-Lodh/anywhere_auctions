@@ -22,13 +22,15 @@ class _SignInState extends State<SignIn> {
     SharedPreferences pref = await SharedPreferences.getInstance();
     setState(() {
       pref.setString("user_email", _userObj.email);
+      pref.setString("user_name", _userObj.displayName);
       pref.setString("user_photoUrl", _userObj.photoUrl);
       pref.setBool("login_status", true);
       Constant.userEmail = pref.getString("user_email")??"";
+      Constant.userName = pref.getString("user_name")??"";
       Constant.userPhotoUrl = pref.getString("user_photoUrl")??"";
       Constant.loggedIn = pref.getBool("login_status")??false;
 
-      print(Constant.userEmail);
+      // print(Constant.userEmail);
     });
 
   }

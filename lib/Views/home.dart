@@ -22,12 +22,36 @@ class _HomePageState extends State<HomePage> {
   GoogleSignIn _googleSignIn = GoogleSignIn();
 
   Future showData() async {
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('products').where("products_created_by", isEqualTo : 1).get();
-    print(querySnapshot.size);
-    if(querySnapshot.docs.length>0)
-      {
-        print(querySnapshot.docs);
-      }
+
+    QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('bids').where("product_id", isEqualTo : 2).get();
+    print(snapshot.docs[0].data());
+    // QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('products').where("products_created_by", isEqualTo : 1).get();
+    // print(querySnapshot.size);
+    // if(querySnapshot.docs.length>0)
+    //   {
+    //     print(querySnapshot.docs);
+    //   }
+
+    // QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('products').get();
+    // print(querySnapshot.docs[0].id);
+    // QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('products').where("products_id", isEqualTo : 2).get();
+    // print(snapshot.docs[0].id);
+    // await FirebaseFirestore.instance.collection('products').doc("w10C7Mr9ufoTkJ7TH6dB").update({
+    //   "products_auction_price": 900
+    // });
+    // if (snapshot.docs.isNotEmpty) await snapshot.docs[0]
+    //     .reference
+    //     .update('products_auction_price', );
+    // Firestore.instance
+    //     .collection('products')
+    //     .document(snapshot.docs[0].id)
+    //     .updateData({
+    //   "IsNewUser":"1"
+    // }).then((result){
+    //   print("new USer true");
+    // }).catchError((onError){
+    //   print("onError");
+    // });
   }
   
   @override
@@ -53,9 +77,8 @@ class _HomePageState extends State<HomePage> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-
             backgroundColor: button_background,
-            title: Center(child: Text('Anywhere Auction')),
+            title: Center(child: Text("Anywhere Auction"),),
             actions: <Widget>[
               CircleAvatar(
                 radius: 20.0,
@@ -68,17 +91,17 @@ class _HomePageState extends State<HomePage> {
                   PopupMenuItem<int>(
                     value: 0,
                     child: Row(
-                    children: [
-                      Icon(
-                        Icons.logout,
-                        color: Colors.red,
-                      ),
-                      const SizedBox(
-                        width: 7,
-                      ),
-                      Text("Logout")
-                    ],
-                  ),
+                      children: [
+                        Icon(
+                          Icons.logout,
+                          color: Colors.red,
+                        ),
+                        const SizedBox(
+                          width: 7,
+                        ),
+                        Text("Logout")
+                      ],
+                    ),
                   ),
                 ],
                 onSelected: (item){
@@ -87,6 +110,7 @@ class _HomePageState extends State<HomePage> {
                       setState(() async{
                         SharedPreferences pref = await SharedPreferences.getInstance();
                         pref.setString("user_email", "");
+                        pref.setString("user_name", "");
                         pref.setString("user_photoUrl", "");
                         pref.setBool("login_status", false);
                         Navigator.pushAndRemoveUntil(
@@ -157,3 +181,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+

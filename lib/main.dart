@@ -6,6 +6,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'Views/auction_product_details.dart';
 import 'Views/home.dart';
 
 void main() async{
@@ -13,6 +14,7 @@ void main() async{
   await Firebase.initializeApp();
   SharedPreferences pref = await SharedPreferences.getInstance();
   Constant.userEmail = pref.getString("user_email")??"";
+  Constant.userName = pref.getString("user_name")??"";
   Constant.userPhotoUrl = pref.getString("user_photoUrl")??"";
   Constant.loggedIn = pref.getBool("login_status")??false;
   runApp(MyApp());
@@ -28,7 +30,7 @@ class MyApp extends StatelessWidget {
           Theme.of(context).textTheme,
         ),
       ),
-      // home: AddAuctionProduct(),
+      // home: AuctionProductDetails(),
       home : Constant.loggedIn == false? SignIn(): HomePage(),
       builder: EasyLoading.init(),
     );

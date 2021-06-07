@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class Constant{
   static String userEmail;
+  static String userName;
   static String userPhotoUrl;
   static bool loggedIn = false;
 }

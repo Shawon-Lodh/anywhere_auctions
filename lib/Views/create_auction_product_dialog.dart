@@ -276,7 +276,7 @@ class _ProductCreationDialogState extends State<ProductCreationDialog> {
                               "products_name": _productNameController.text,  //productsData["name"],
                               "products_des": _productDesController.text,  // productsData["des"],
                               "products_imageUrl": url,
-                              "products_auction_price": _productBidPriceController.text,  // productsData["price"],
+                              "products_auction_price": int.parse(_productBidPriceController.text),  // productsData["price"],
                               "products_auction_TotalTime": DateTime(_date.year,_date.month,_date.day,_time.hour,_time.minute),
                               "products_auction_completedStatus": false,
                               "products_created_by": Constant.userEmail,
