@@ -1,9 +1,20 @@
 import 'package:anywhere_auction/Views/signIn_page.dart';
+import 'package:anywhere_auction/constants/constants.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'Views/home.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  SharedPreferences pref = await SharedPreferences.getInstance();
+  Constant.userEmail = pref.getString("user_email")??"";
+  Constant.userPhotoUrl = pref.getString("user_photoUrl")??"";
+  Constant.loggedIn = pref.getBool("login_status")??false;
   runApp(MyApp());
 }
 
@@ -17,7 +28,9 @@ class MyApp extends StatelessWidget {
           Theme.of(context).textTheme,
         ),
       ),
-      home: SignIn(),
+      // home: AddAuctionProduct(),
+      home : Constant.loggedIn == false? SignIn(): HomePage(),
+      builder: EasyLoading.init(),
     );
   }
 }

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Constant{
-  // static const regularHeading = TextStyle(
-  //   fontSize: 18,fontWeight: FontWeight.w600,color: Colors.black,
-  // );
-
+  static String userEmail;
+  static String userPhotoUrl;
+  static bool loggedIn = false;
 }
 class ResponsiveSize{
   static MediaQueryData _mediaQueryData;
