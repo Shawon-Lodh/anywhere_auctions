@@ -28,7 +28,7 @@ class _BidCreationDialogState extends State<BidCreationDialog> {
     QuerySnapshot productSnapshot = await FirebaseFirestore.instance.collection('products').where("products_id", isEqualTo : widget.productId).get();
     String productMainID = productSnapshot.docs[0].id;
     await FirebaseFirestore.instance.collection('products').doc(productMainID).update({
-      "products_auction_price": int.parse(bidsData["bid_price"])
+      "products_auction_price": bidsData["bid_price"]
     });
   }
 
@@ -126,7 +126,7 @@ class _BidCreationDialogState extends State<BidCreationDialog> {
                               "product_id": widget.productId,  //productsData["name"],
                               "user_name": Constant.userName,  // productsData["des"],
                               "user_email": Constant.userEmail,
-                              "bid_price": _bidAmountController.text,  // productsData["price"],
+                              "bid_price": int.parse(_bidAmountController.text),  // productsData["price"],
                             };
 
                             _saveBidsData(bidsData);

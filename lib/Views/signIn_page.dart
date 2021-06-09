@@ -161,7 +161,7 @@ class _SignInState extends State<SignIn> {
 
                     _googleSignIn.signIn().then((userData) {
                       setState(() async{
-                        checkPreviousSignIn(userData.email);
+                        await checkPreviousSignIn(userData.email);
                         _userObj = userData;
                         // print(userData);
                         // print(userData.runtimeType);

@@ -14,7 +14,9 @@ class AuctionProductDetails extends StatefulWidget {
 
   final bool myPost;
 
-  AuctionProductDetails({this.singleProductSnapshot,this.myPost});
+  final bool auctionEnd;
+
+  AuctionProductDetails({this.singleProductSnapshot,this.myPost,this.auctionEnd});
 
   @override
   _AuctionProductDetailsState createState() => _AuctionProductDetailsState();
@@ -28,6 +30,16 @@ class _AuctionProductDetailsState extends State<AuctionProductDetails> {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('bids').where("product_id", isEqualTo : widget.singleProductSnapshot["products_id"]).get();
     print(querySnapshot.docs.length);
     return querySnapshot.docs.length;
+  }
+
+  Future<List> getBidWinner() async {
+    QuerySnapshot producSnapshot =  await FirebaseFirestore.instance.collection('products').where("products_id", isEqualTo : widget.singleProductSnapshot["products_id"]).get();
+    return [producSnapshot.docs[0]["products_after_auction_end_bid_creation_status"],producSnapshot.docs[0]["products_auction_winning_user_name"] ,producSnapshot.docs[0]["products_auction_winning_user_email"] ];
+  }
+
+  Future<String> getBidWinnerImage(String userEmail) async {
+    QuerySnapshot producSnapshot =  await FirebaseFirestore.instance.collection('users').where("user_mail", isEqualTo : userEmail).get();
+    return producSnapshot.docs[0]["user_photoUrl"];
   }
 
   @override
@@ -135,11 +147,11 @@ class _AuctionProductDetailsState extends State<AuctionProductDetails> {
                                 ),
                               ),
                               Text(
-                                "Active",
+                                widget.auctionEnd ? "End" : "Active",
                                 style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
-                                    color: Colors.green),
+                                    color: widget.auctionEnd ? Colors.red : Colors.green),
                               ),
                             ],
                           ),
@@ -147,60 +159,125 @@ class _AuctionProductDetailsState extends State<AuctionProductDetails> {
                       ),
                       // Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."),
                       Text(widget.singleProductSnapshot["products_des"]),
-                      Row(
-                        children: [
-                          Text(
-                            "All Bidders",
-                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      widget.auctionEnd ? SizedBox(height: 20,) : Container(),
+                      widget.auctionEnd ? FutureBuilder<List>(
+                          future: getBidWinner(),
+                          initialData: [false,"",""],
+                          builder: (BuildContext context,productSnapshot) {
+                            return productSnapshot.data[0] ? Container(
+                          margin: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: button_background),
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
                           ),
-                          Text(
-                            "  - ",
-                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            "${totalBidCount.data}" ,
-                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        margin: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: button_background),
-                          borderRadius: BorderRadius.all(Radius.circular(5)),
-                        ),
-                        child: Container(
-                          constraints: BoxConstraints(maxHeight: 130),
-                          child: _getBidderDetails(),
-                        ),
-                      ),
-                      widget.myPost ? Container() : Align(
-                        alignment: Alignment.center,
-                        child: GestureDetector(
-                          onTap: (){
-                            showDialog(
-                                context: context,
-                                barrierDismissible: false,
-                                builder: (context) {
-                                  return BidCreationDialog(productId: widget.singleProductSnapshot["products_id"],productPrice: widget.singleProductSnapshot["products_auction_price"],);
-                                });
-                          },
                           child: Container(
-                            padding: EdgeInsets.all(15),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
-                              color: button_background,
-                            ),
-                            child: Text(
-                              "Bid Now",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                              child: Column(
+                                children: [
+                                  Text("Auction Winning By ",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500,color: Colors.green),),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(10.0),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(productSnapshot.data[1],style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                                            Text(productSnapshot.data[2],style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
+                                          ],
+                                        ),
+                                      ),
+
+                                      FutureBuilder<String>(
+                                        future: getBidWinnerImage(productSnapshot.data[2]),
+                                        builder: (BuildContext context,snapshot) {
+                                                  if(snapshot.hasData){
+                                                      if(snapshot.connectionState == ConnectionState.waiting){
+                                                            return Center(
+                                                                child: CircularProgressIndicator(),
+                                                            );
+                                                          }else{
+                                                              return Padding(
+                                                                padding: EdgeInsets.all(10.0),
+                                                                child: CircleAvatar(
+                                                                  radius: 30.0,
+                                                                  backgroundImage: NetworkImage(snapshot.data),
+                                                                  backgroundColor: Colors.transparent,
+                                                                ),
+                                                              );
+                                                                }
+                                                  } else{
+                                                          return CircularProgressIndicator();
+                                                        }
+                                        }
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
-                          ),
+                        ) : Align(alignment:Alignment.center,child: Text("No bidding is occured",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500,color: Colors.red),));},
+                      ) : Container(
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  "All Bidders",
+                                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  "  - ",
+                                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  "${totalBidCount.data}" ,
+                                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              margin: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: button_background),
+                                borderRadius: BorderRadius.all(Radius.circular(5)),
+                              ),
+                              child: Container(
+                                constraints: BoxConstraints(maxHeight: 130),
+                                child: _getBidderDetails(),
+                              ),
+                            ),
+                            widget.myPost ? Container() : Align(
+                              alignment: Alignment.center,
+                              child: GestureDetector(
+                                onTap: (){
+                                  showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (context) {
+                                        return BidCreationDialog(productId: widget.singleProductSnapshot["products_id"],productPrice: widget.singleProductSnapshot["products_auction_price"],);
+                                      });
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(15),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                                    color: button_background,
+                                  ),
+                                  child: Text(
+                                    "Bid Now",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       SizedBox(height: 10,),

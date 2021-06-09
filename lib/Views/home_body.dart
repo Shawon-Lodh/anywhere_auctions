@@ -15,17 +15,15 @@ class HomePageDetials extends StatefulWidget {
 
 class _HomePageDetialsState extends State<HomePageDetials> {
   Timer timer;
-  String remainingTime = "";
 
-
-  checkForRemainingAuctionEndTime(DateTime auctionEndTime){
+  List checkForRemainingAuctionEndTime(DateTime auctionEndTime){
     int day = 0;
     int hour = 0;
     int minute = 0;
     // DateTime endDate = DateTime.parse(singleProductDoc["products_auction_TotalTime"].toDate().toString());
     int difference = auctionEndTime.difference(DateTime.now()).inMinutes;
     // print(endDate);
-    print(difference);
+    print("This is difference : ${difference}");
     if(difference/(60*24) == 0){
       day = difference~/(60*24);
       hour = 0;
@@ -44,8 +42,29 @@ class _HomePageDetialsState extends State<HomePageDetials> {
     //   "hour" : hour,
     //   "minute" : minute,
     // };
-    remainingTime = "${day}day ${hour}h ${minute}m";
-    // return remainingTime;
+    // return "${day}day ${hour}h ${minute}m";
+    return [day,hour,minute];
+  }
+
+  auctionClosing(int productId, int lastBidPrice) async{
+
+    QuerySnapshot productSnapshot = await FirebaseFirestore.instance.collection('products').where("products_id", isEqualTo : productId).get();
+    String productMainID = productSnapshot.docs[0].id;
+    await FirebaseFirestore.instance.collection('products').doc(productMainID).update({
+      "products_auction_completedStatus": true
+    });
+
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('bids').where("bid_price", isEqualTo : lastBidPrice).where("product_id", isEqualTo: productId).get();
+    if(querySnapshot.size>0){
+      await FirebaseFirestore.instance.collection("products").doc(productMainID).update({
+        "products_auction_winning_user_name" : querySnapshot.docs[0]["user_name"],
+        "products_auction_winning_user_email" : querySnapshot.docs[0]["user_email"],
+        "products_after_auction_end_bid_creation_status": true,
+      });
+      // await FirebaseFirestore.instance.collection('products').doc(productMainID).update({
+      //   "products_after_auction_end_bid_creation_status": true
+      // });
+    }
   }
 
   Future<int> getTotalBidsCountBasedOnProduct(int productId) async {
@@ -56,7 +75,6 @@ class _HomePageDetialsState extends State<HomePageDetials> {
     print(querySnapshot.docs.length);
     return querySnapshot.docs.length;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +91,7 @@ class _HomePageDetialsState extends State<HomePageDetials> {
               ),
               Tab(
                 text: 'My posts',
+
               ),
             ],
           ),
@@ -122,19 +141,40 @@ class _HomePageDetialsState extends State<HomePageDetials> {
         ),
         itemBuilder: (BuildContext context, int index) {
           final singleProductDoc = querySnapshot.data.docs[index];
-          checkForRemainingAuctionEndTime(DateTime.parse(singleProductDoc["products_auction_TotalTime"].toDate().toString()));
-          timer = Timer.periodic(Duration(seconds: 60), (Timer t) {
-            setState(() {
-              checkForRemainingAuctionEndTime(DateTime.parse(singleProductDoc["products_auction_TotalTime"].toDate().toString()));
+
+          String remainingTime = "";
+          List time_details;
+          bool auctionEnd = singleProductDoc["products_auction_completedStatus"];
+
+
+          if(auctionEnd == false){
+            time_details =  checkForRemainingAuctionEndTime(DateTime.parse(singleProductDoc["products_auction_TotalTime"].toDate().toString()));
+            remainingTime ="${time_details[0]}day ${time_details[1]}h ${time_details[2]}m";
+
+            timer = Timer.periodic(Duration(seconds: 60), (Timer t) {
+              setState(() {
+                time_details = checkForRemainingAuctionEndTime(DateTime.parse(singleProductDoc["products_auction_TotalTime"].toDate().toString()));
+                remainingTime ="${time_details[0]}day ${time_details[1]}h ${time_details[2]}m";
+              });
             });
-          });
+
+            // if(DateTime.parse(singleProductDoc["products_auction_TotalTime"].toDate().toString()).difference(DateTime.now()).inMinutes == -1)
+            if(time_details[0]==0 && time_details[1]==0 && time_details[2]==0)
+            {
+              // auctionEnd = true;
+              setState((){
+                auctionClosing(singleProductDoc["products_id"],singleProductDoc["products_auction_price"]);
+              });
+              timer.cancel();
+            }
+          }
           return GestureDetector(
             onTap: () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => AuctionProductDetails(
-                      singleProductSnapshot: singleProductDoc,myPost: myPost,),
+                      singleProductSnapshot: singleProductDoc,myPost: myPost,auctionEnd: auctionEnd,),
                   ));
             },
             child: GridTile(
@@ -164,9 +204,9 @@ class _HomePageDetialsState extends State<HomePageDetials> {
                                   fontWeight: FontWeight.bold, fontSize: 20),
                             ),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: auctionEnd ? MainAxisAlignment.center : MainAxisAlignment.spaceBetween,
                               children: [
-                                Container(
+                                auctionEnd ? Container() : Container(
                                   padding: EdgeInsets.all(2),
                                   decoration: BoxDecoration(color: Colors.red),
                                   child: Row(
@@ -195,18 +235,18 @@ class _HomePageDetialsState extends State<HomePageDetials> {
                                       child: Row(
                                         children: [
                                           Text(
-                                            remainingTime,
+                                            auctionEnd ? "Auction is ended" :remainingTime,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w500,
                                                 fontSize: 12),
                                           ),
-                                          SizedBox(
+                                          auctionEnd ? Container() : SizedBox(
                                             width: 2,
                                           ),
                                         ],
                                       ),
                                     ),
-                                    Image.asset(
+                                    auctionEnd ? Container() : Image.asset(
                                       "assets/images/timer.gif",
                                       height: 20.0,
                                       width: 20.0,

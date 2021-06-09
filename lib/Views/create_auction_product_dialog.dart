@@ -279,7 +279,10 @@ class _ProductCreationDialogState extends State<ProductCreationDialog> {
                               "products_auction_price": int.parse(_productBidPriceController.text),  // productsData["price"],
                               "products_auction_TotalTime": DateTime(_date.year,_date.month,_date.day,_time.hour,_time.minute),
                               "products_auction_completedStatus": false,
+                              "products_after_auction_end_bid_creation_status" : false,
                               "products_created_by": Constant.userEmail,
+                              "products_auction_winning_user_name": "",
+                              "products_auction_winning_user_email": "",
                             };
 
                             _saveProductssData(productsData);
