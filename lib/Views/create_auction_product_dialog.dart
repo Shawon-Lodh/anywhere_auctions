@@ -52,18 +52,6 @@ class _ProductCreationDialogState extends State<ProductCreationDialog> {
     });
   }
 
-  // int calculateTotalAuctionTime(){
-  //   // print(DateFormat("dd-MM-yyyy-HH-mm").format(_date));
-  //   // print(_time.hour);
-  //   // print(_time.minute);
-  //   // print(DateTime(_date.year, _date.month, _date.day-1));
-  //   DateTime EndDate = DateTime(_date.year,_date.month,_date.day,_time.hour,_time.minute);
-  //   final difference = EndDate.difference(DateTime.now()).inMinutes;
-  //   // print(DateFormat("dd-MM-yyyy-HH-mm").format(DateTime(_date.year,_date.month,_date.day,_time.hour,_time.minute)));
-  //   // print(difference);
-  //   return difference;  // return the miniute amount
-  //   // print("${difference~/(60*24)} day ${difference~/60} hours and ${difference%60} miniutes");
-  // }
 
   Future<int> getTotalProductsCount() async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('products').get();
@@ -86,16 +74,17 @@ class _ProductCreationDialogState extends State<ProductCreationDialog> {
 
   @override
   Widget build(BuildContext context) {
+    ResponsiveSize().init(context);
     return Container(
       child: Dialog(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
+          borderRadius: BorderRadius.circular(5.1*ResponsiveSize.blockSizeHorizontal),
         ),
         child: SingleChildScrollView(
           child: Container(
             // height: 200,
             child: Padding(
-              padding: EdgeInsets.all(12),
+              padding: EdgeInsets.all(3.06*ResponsiveSize.blockSizeHorizontal),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -112,15 +101,15 @@ class _ProductCreationDialogState extends State<ProductCreationDialog> {
                       FocusScope.of(context).unfocus();
                     },
                     child: Container(
-                      constraints: BoxConstraints(maxHeight: 70),
+                      constraints: BoxConstraints(maxHeight: 17.83*ResponsiveSize.blockSizeHorizontal),
                       child: SingleChildScrollView(
                         child: TextField(
                           controller: _productNameController,
                           maxLines: null,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
-                                borderRadius: const BorderRadius.all(
-                                  const Radius.circular(10.0),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(2.6*ResponsiveSize.blockSizeHorizontal),
                                 ),
                               ),
                               filled: true,
@@ -137,15 +126,15 @@ class _ProductCreationDialogState extends State<ProductCreationDialog> {
                       FocusScope.of(context).unfocus();
                     },
                     child: Container(
-                      constraints: BoxConstraints(maxHeight: 100),
+                      constraints: BoxConstraints(maxHeight: 25.47*ResponsiveSize.blockSizeHorizontal),
                       child: SingleChildScrollView(
                         child: TextField(
                           controller: _productDesController,
                           maxLines: null,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
-                                borderRadius: const BorderRadius.all(
-                                  const Radius.circular(10.0),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(2.6*ResponsiveSize.blockSizeHorizontal),
                                 ),
                               ),
                               filled: true,
@@ -159,8 +148,8 @@ class _ProductCreationDialogState extends State<ProductCreationDialog> {
                   Row(
                     children: [
                       Text("Product Photo"),
-                      SizedBox(width: 10,),
-                      _image != null ? Image.file(_image,width: 50,height: 50,) : GestureDetector(
+                      SizedBox(width: 2.6*ResponsiveSize.blockSizeHorizontal,),
+                      _image != null ? Image.file(_image,width: 12.74*ResponsiveSize.blockSizeHorizontal,height: 12.74*ResponsiveSize.blockSizeHorizontal,) : GestureDetector(
                         onTap: () {
                           FocusScope.of(context).unfocus();
                         },
@@ -169,7 +158,7 @@ class _ProductCreationDialogState extends State<ProductCreationDialog> {
                             IconButton(
                               icon: Icon(Icons.camera_alt),
                               onPressed: getImageFromCamera,),
-                            SizedBox(width: 10,),
+                            SizedBox(width: 2.6*ResponsiveSize.blockSizeHorizontal,),
                             IconButton(
                               icon: Icon(Icons.insert_photo),
                               onPressed: getImageFromGallery,
@@ -185,7 +174,7 @@ class _ProductCreationDialogState extends State<ProductCreationDialog> {
                       FocusScope.of(context).unfocus();
                     },
                     child: Container(
-                      constraints: BoxConstraints(maxHeight: 70),
+                      constraints: BoxConstraints(maxHeight: 17.83*ResponsiveSize.blockSizeHorizontal),
                       child: SingleChildScrollView(
                         child: TextField(
                           controller: _productBidPriceController,
@@ -196,8 +185,8 @@ class _ProductCreationDialogState extends State<ProductCreationDialog> {
                           maxLines: null,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
-                                borderRadius: const BorderRadius.all(
-                                  const Radius.circular(10.0),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(2.6*ResponsiveSize.blockSizeHorizontal),
                                 ),
                               ),
                               filled: true,
@@ -211,7 +200,7 @@ class _ProductCreationDialogState extends State<ProductCreationDialog> {
                   Row(
                     children: [
                       Text("Aunction End Date"),
-                      SizedBox(width: 10,),
+                      SizedBox(width: 2.6*ResponsiveSize.blockSizeHorizontal,),
                       IconButton(onPressed: (){
                         FocusScope.of(context).unfocus();
                         showDatePicker(
@@ -225,14 +214,14 @@ class _ProductCreationDialogState extends State<ProductCreationDialog> {
                         });
                       },
                         icon: Icon(Icons.calendar_today_sharp),),
-                      SizedBox(width: 10,),
+                      SizedBox(width: 2.6*ResponsiveSize.blockSizeHorizontal,),
                       Text(_date == null? "" : "${DateFormat("dd-MM-yyyy").format(_date)}"),
                     ],
                   ),
                   Row(
                     children: [
                       Text("Aunction End Time"),
-                      SizedBox(width: 10,),
+                      SizedBox(width: 2.6*ResponsiveSize.blockSizeHorizontal,),
                       IconButton(onPressed: (){
                         FocusScope.of(context).unfocus();
                         showTimePicker(
@@ -244,12 +233,12 @@ class _ProductCreationDialogState extends State<ProductCreationDialog> {
                         });
                       },
                         icon: Icon(Icons.timer),),
-                      SizedBox(width: 10,),
+                      SizedBox(width: 2.6*ResponsiveSize.blockSizeHorizontal,),
                       Text(_time == null? "" : "${_time.hour}:${_time.minute}"),
                     ],
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 5.1*ResponsiveSize.blockSizeHorizontal,
                   ),
                   Align(
                     alignment: Alignment.center,
@@ -301,15 +290,15 @@ class _ProductCreationDialogState extends State<ProductCreationDialog> {
                         }
                       },
                       child: Container(
-                        padding: EdgeInsets.all(10),
+                        padding: EdgeInsets.all(2.6*ResponsiveSize.blockSizeHorizontal),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderRadius: BorderRadius.all(Radius.circular(5.1*ResponsiveSize.blockSizeHorizontal)),
                           color: button_background,
                         ),
                         child: Text(
                           "Create",
                           style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 3.82*ResponsiveSize.blockSizeHorizontal,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
@@ -317,7 +306,7 @@ class _ProductCreationDialogState extends State<ProductCreationDialog> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 5.1*ResponsiveSize.blockSizeHorizontal,),
                 ],
               ),
             ),

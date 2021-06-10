@@ -4,7 +4,6 @@ import 'package:anywhere_auction/Views/signIn_page.dart';
 import 'package:anywhere_auction/constants/colors.dart';
 import 'package:anywhere_auction/constants/constants.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -41,6 +40,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    ResponsiveSize().init(context);
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
             title: Center(child: Text("Anywhere Auction"),),
             actions: <Widget>[
               CircleAvatar(
-                radius: 20.0,
+                radius: 5.1*ResponsiveSize.blockSizeHorizontal,
                 backgroundImage:
                 NetworkImage(Constant.userPhotoUrl),
                 backgroundColor: Colors.transparent,
@@ -64,8 +64,8 @@ class _HomePageState extends State<HomePage> {
                           Icons.logout,
                           color: Colors.red,
                         ),
-                        const SizedBox(
-                          width: 7,
+                        SizedBox(
+                          width: 1.8*ResponsiveSize.blockSizeHorizontal,
                         ),
                         Text("Logout")
                       ],

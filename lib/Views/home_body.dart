@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:anywhere_auction/constants/colors.dart';
 import 'package:anywhere_auction/constants/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -78,13 +77,15 @@ class _HomePageDetialsState extends State<HomePageDetials> {
 
   @override
   Widget build(BuildContext context) {
+    ResponsiveSize().init(context);
+    print("Sizes are - ${ResponsiveSize.screenWidth}, ${ResponsiveSize.screenHeight}, ${ResponsiveSize.blockSizeHorizontal}, ${ResponsiveSize.blockSizeVertical}");
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: button_background,
           title: TabBar(
-            indicatorWeight: 10.0,
+            indicatorWeight: 2.55 * ResponsiveSize.blockSizeHorizontal,
             tabs: <Widget>[
               Tab(
                 text: 'All posts',
@@ -145,7 +146,7 @@ class _HomePageDetialsState extends State<HomePageDetials> {
           String remainingTime = "";
           List time_details;
           bool auctionEnd = singleProductDoc["products_auction_completedStatus"];
-          
+
           if(auctionEnd == false){
             time_details =  checkForRemainingAuctionEndTime(DateTime.parse(singleProductDoc["products_auction_TotalTime"].toDate().toString()));
             remainingTime ="${time_details[0]}day ${time_details[1]}h ${time_details[2]}m";
@@ -205,14 +206,14 @@ class _HomePageDetialsState extends State<HomePageDetials> {
                               child: Text(
                                 singleProductDoc["products_name"],
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 20),
+                                    fontWeight: FontWeight.bold, fontSize: 5.1*ResponsiveSize.blockSizeHorizontal),
                               ),
                             ),
                             Row(
                               mainAxisAlignment: auctionEnd ? MainAxisAlignment.center : MainAxisAlignment.spaceBetween,
                               children: [
                                 auctionEnd ? Container() : Container(
-                                  padding: EdgeInsets.all(2),
+                                  padding: EdgeInsets.all(0.52*ResponsiveSize.blockSizeHorizontal),
                                   decoration: BoxDecoration(color: button_background),
                                   child: Row(
                                     children: [
@@ -220,13 +221,13 @@ class _HomePageDetialsState extends State<HomePageDetials> {
                                         "Bids : ",
                                         style: TextStyle(
                                             fontWeight: FontWeight.w500,
-                                            fontSize: 12,color: Colors.white),
+                                            fontSize: 3.06*ResponsiveSize.blockSizeHorizontal,color: Colors.white),
                                       ),
                                       Text(
                                         "${totalBidCount.data}",
                                         style: TextStyle(
                                             fontWeight: FontWeight.w500,
-                                            fontSize: 12,color: Colors.white),
+                                            fontSize: 3.06*ResponsiveSize.blockSizeHorizontal,color: Colors.white),
                                       ),
                                     ],
                                   ),
@@ -234,7 +235,7 @@ class _HomePageDetialsState extends State<HomePageDetials> {
                                 Row(
                                   children: [
                                     Container(
-                                      padding: EdgeInsets.all(2),
+                                      padding: EdgeInsets.all(0.52*ResponsiveSize.blockSizeHorizontal),
                                       decoration:
                                       BoxDecoration(color: button_background),
                                       child: Row(
@@ -243,19 +244,19 @@ class _HomePageDetialsState extends State<HomePageDetials> {
                                             auctionEnd ? "Auction is ended" :remainingTime,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w500,
-                                                fontSize: 12,
+                                                fontSize: 3.06*ResponsiveSize.blockSizeHorizontal,
                                                 color: Colors.white),
                                           ),
                                           auctionEnd ? Container() : SizedBox(
-                                            width: 2,
+                                            width: 0.52*ResponsiveSize.blockSizeHorizontal,
                                           ),
                                         ],
                                       ),
                                     ),
                                     auctionEnd ? Container() : Image.asset(
                                       "assets/images/timer.gif",
-                                      height: 20.0,
-                                      width: 20.0,
+                                      height: 5.1*ResponsiveSize.blockSizeHorizontal,
+                                      width: 5.1*ResponsiveSize.blockSizeHorizontal,
                                     ),
                                   ],
                                 ),
@@ -269,12 +270,12 @@ class _HomePageDetialsState extends State<HomePageDetials> {
                                   "\u09f3 ${singleProductDoc["products_auction_price"]}",
                                   style: TextStyle(
                                       fontWeight: FontWeight.w500,
-                                      fontSize: 20),
+                                      fontSize: 5.1*ResponsiveSize.blockSizeHorizontal),
                                 ),
                                 Image.asset(
                                   "assets/images/front_page_logo.png",
-                                  height: 25.0,
-                                  width: 25.0,
+                                  height: 6.4*ResponsiveSize.blockSizeHorizontal,
+                                  width: 6.4*ResponsiveSize.blockSizeHorizontal,
                                 ),
                               ],
                             ),

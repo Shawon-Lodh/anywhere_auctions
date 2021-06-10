@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:anywhere_auction/constants/colors.dart';
 import 'package:anywhere_auction/constants/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -39,16 +38,17 @@ class _BidCreationDialogState extends State<BidCreationDialog> {
 
   @override
   Widget build(BuildContext context) {
+    ResponsiveSize().init(context);
     return Container(
       child: Dialog(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
+          borderRadius: BorderRadius.circular(5.1*ResponsiveSize.blockSizeHorizontal),
         ),
         child: SingleChildScrollView(
           child: Container(
             // height: 200,
             child: Padding(
-              padding: EdgeInsets.all(12),
+              padding: EdgeInsets.all(3.06*ResponsiveSize.blockSizeHorizontal),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -59,13 +59,13 @@ class _BidCreationDialogState extends State<BidCreationDialog> {
                         Navigator.pop(context);
                       },),
                   ),
-                  Align(alignment:Alignment.center,child: Text("Minimum Bid Amount - \u09f3 ${widget.productPrice}",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),)),
+                  Align(alignment:Alignment.center,child: Text("Minimum Bid Amount - \u09f3 ${widget.productPrice}",style: TextStyle(fontSize: 3.82*ResponsiveSize.blockSizeHorizontal,fontWeight: FontWeight.w500),)),
                   SizedBox(
-                    height: 10,
+                    height: 2.6*ResponsiveSize.blockSizeHorizontal,
                   ),
                   Align(alignment:Alignment.center,child: Text("1 Bid - 1Day 1hour Left",style: TextStyle(color: button_background),)),
                   SizedBox(
-                    height: 20,
+                    height: 5.1*ResponsiveSize.blockSizeHorizontal,
                   ),
                   Text("Your Bid Amount"),
                   GestureDetector(
@@ -73,7 +73,7 @@ class _BidCreationDialogState extends State<BidCreationDialog> {
                       FocusScope.of(context).unfocus();
                     },
                     child: Container(
-                      constraints: BoxConstraints(maxHeight: 70),
+                      constraints: BoxConstraints(maxHeight: 17.83*ResponsiveSize.blockSizeHorizontal),
                       child: SingleChildScrollView(
                         child: TextField(
                           controller: _bidAmountController,
@@ -84,8 +84,8 @@ class _BidCreationDialogState extends State<BidCreationDialog> {
                           maxLines: null,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
-                                borderRadius: const BorderRadius.all(
-                                  const Radius.circular(10.0),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(2.6*ResponsiveSize.blockSizeHorizontal),
                                 ),
                               ),
                               filled: true,
@@ -97,10 +97,10 @@ class _BidCreationDialogState extends State<BidCreationDialog> {
                       ),
                     ),
                   ),
-                  alertShow ? SizedBox(height: 10) : Container(),
+                  alertShow ? SizedBox(height: 2.6*ResponsiveSize.blockSizeHorizontal) : Container(),
                   alertShow ? Text("Bid amount less than Minimum Bid amount",style: TextStyle(color: Colors.red)): Container(),
                   SizedBox(
-                    height: 20,
+                    height: 5.1*ResponsiveSize.blockSizeHorizontal,
                   ),
                   Align(
                     alignment: Alignment.center,
@@ -146,15 +146,15 @@ class _BidCreationDialogState extends State<BidCreationDialog> {
 
                       },
                       child: Container(
-                        padding: EdgeInsets.all(15),
+                        padding: EdgeInsets.all(3.82*ResponsiveSize.blockSizeHorizontal),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                          borderRadius: BorderRadius.all(Radius.circular(3.82*ResponsiveSize.blockSizeHorizontal)),
                           color: button_background,
                         ),
                         child: Text(
                           "Place Bid",
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 5.1*ResponsiveSize.blockSizeHorizontal,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
@@ -162,7 +162,7 @@ class _BidCreationDialogState extends State<BidCreationDialog> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 5.1*ResponsiveSize.blockSizeHorizontal,),
                 ],
               ),
             ),

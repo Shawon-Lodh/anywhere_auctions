@@ -5,6 +5,7 @@ class Constant{
   static String userName;
   static String userPhotoUrl;
   static bool loggedIn = false;
+
 }
 class ResponsiveSize{
   static MediaQueryData _mediaQueryData;

@@ -58,7 +58,7 @@ class _AuctionProductDetailsState extends State<AuctionProductDetails> {
           ),
           actions: <Widget>[
             CircleAvatar(
-              radius: 20.0,
+              radius: 5.1*ResponsiveSize.blockSizeHorizontal,
               backgroundImage: NetworkImage(Constant.userPhotoUrl),
               backgroundColor: Colors.transparent,
             ),
@@ -72,8 +72,8 @@ class _AuctionProductDetailsState extends State<AuctionProductDetails> {
                         Icons.logout,
                         color: Colors.red,
                       ),
-                      const SizedBox(
-                        width: 7,
+                      SizedBox(
+                        width: 1.8*ResponsiveSize.blockSizeHorizontal,
                       ),
                       Text("Logout")
                     ],
@@ -113,10 +113,10 @@ class _AuctionProductDetailsState extends State<AuctionProductDetails> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        padding: EdgeInsets.all(10),
+                        padding: EdgeInsets.all(2.6*ResponsiveSize.blockSizeHorizontal),
                         decoration: BoxDecoration(
                           border: Border.all(color: button_background),
-                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                          borderRadius: BorderRadius.all(Radius.circular(1.28*ResponsiveSize.blockSizeHorizontal)),
                         ),
                         child: Image.network(
                           widget.singleProductSnapshot["products_imageUrl"],
@@ -124,18 +124,18 @@ class _AuctionProductDetailsState extends State<AuctionProductDetails> {
                           height: ResponsiveSize.screenHeight/3,
                         ),
                       ),
-                      SizedBox(height: 20,),
+                      SizedBox(height: 5.1*ResponsiveSize.blockSizeHorizontal,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             widget.singleProductSnapshot["products_name"],
-                            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: 6.4*ResponsiveSize.blockSizeHorizontal, fontWeight: FontWeight.bold),
                           ),
                           Column(
                             children: [
                               Container(
-                                padding: EdgeInsets.all(10),
+                                padding: EdgeInsets.all(2.6*ResponsiveSize.blockSizeHorizontal),
                                 decoration: BoxDecoration(
                                   border: Border.all(color: button_background),
                                   borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -143,13 +143,13 @@ class _AuctionProductDetailsState extends State<AuctionProductDetails> {
                                 child: Text(
                                   "\u09f3 ${widget.singleProductSnapshot["products_auction_price"]}",
                                   style: TextStyle(
-                                      fontSize: 15, fontWeight: FontWeight.w800),
+                                      fontSize: 3.82*ResponsiveSize.blockSizeHorizontal, fontWeight: FontWeight.w800),
                                 ),
                               ),
                               Text(
                                 widget.auctionEnd ? "End" : "Active",
                                 style: TextStyle(
-                                    fontSize: 12,
+                                    fontSize: 3.06*ResponsiveSize.blockSizeHorizontal,
                                     fontWeight: FontWeight.w500,
                                     color: widget.auctionEnd ? Colors.red : Colors.green),
                               ),
@@ -159,32 +159,32 @@ class _AuctionProductDetailsState extends State<AuctionProductDetails> {
                       ),
                       // Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."),
                       Text(widget.singleProductSnapshot["products_des"]),
-                      widget.auctionEnd ? SizedBox(height: 20,) : Container(),
+                      widget.auctionEnd ? SizedBox(height: 5.1*ResponsiveSize.blockSizeHorizontal,) : Container(),
                       widget.auctionEnd ? FutureBuilder<List>(
                           future: getBidWinner(),
                           initialData: [false,"",""],
                           builder: (BuildContext context,productSnapshot) {
                             return productSnapshot.data[0] ? Container(
-                          margin: EdgeInsets.all(10),
+                          margin: EdgeInsets.all(2.6*ResponsiveSize.blockSizeHorizontal),
                           decoration: BoxDecoration(
                             border: Border.all(color: button_background),
-                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            borderRadius: BorderRadius.all(Radius.circular(1.28*ResponsiveSize.blockSizeHorizontal)),
                           ),
                           child: Container(
                               child: Column(
                                 children: [
-                                  Text("Auction Winning By ",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500,color: Colors.green),),
+                                  Text("Auction Winning By ",style: TextStyle(fontSize: 5.1*ResponsiveSize.blockSizeHorizontal,fontWeight: FontWeight.w500,color: Colors.green),),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsets.all(10.0),
+                                        padding: EdgeInsets.all(2.6*ResponsiveSize.blockSizeHorizontal),
                                         child: Column(
                                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text(productSnapshot.data[1],style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
-                                            Text(productSnapshot.data[2],style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500),),
+                                            Text(productSnapshot.data[1],style: TextStyle(fontSize: 4.59*ResponsiveSize.blockSizeHorizontal,fontWeight: FontWeight.bold),),
+                                            Text(productSnapshot.data[2],style: TextStyle(fontSize: 3.82*ResponsiveSize.blockSizeHorizontal,fontWeight: FontWeight.w500),),
                                           ],
                                         ),
                                       ),
@@ -199,9 +199,9 @@ class _AuctionProductDetailsState extends State<AuctionProductDetails> {
                                                             );
                                                           }else{
                                                               return Padding(
-                                                                padding: EdgeInsets.all(10.0),
+                                                                padding: EdgeInsets.all(2.6*ResponsiveSize.blockSizeHorizontal),
                                                                 child: CircleAvatar(
-                                                                  radius: 30.0,
+                                                                  radius: 7.7*ResponsiveSize.blockSizeHorizontal,
                                                                   backgroundImage: NetworkImage(snapshot.data),
                                                                   backgroundColor: Colors.transparent,
                                                                 ),
@@ -217,7 +217,7 @@ class _AuctionProductDetailsState extends State<AuctionProductDetails> {
                                 ],
                               ),
                             ),
-                        ) : Align(alignment:Alignment.center,child: Text("No bidding is occured",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500,color: Colors.red),));},
+                        ) : Align(alignment:Alignment.center,child: Text("No bidding is occured",style: TextStyle(fontSize: 5.1*ResponsiveSize.blockSizeHorizontal,fontWeight: FontWeight.w500,color: Colors.red),));},
                       ) : Container(
                         child: Column(
                           children: [
@@ -225,27 +225,27 @@ class _AuctionProductDetailsState extends State<AuctionProductDetails> {
                               children: [
                                 Text(
                                   "All Bidders",
-                                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontSize: 5.1*ResponsiveSize.blockSizeHorizontal, fontWeight: FontWeight.bold),
                                 ),
                                 Text(
                                   "  - ",
-                                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontSize: 5.1*ResponsiveSize.blockSizeHorizontal, fontWeight: FontWeight.bold),
                                 ),
                                 Text(
                                   "${totalBidCount.data}" ,
-                                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontSize: 5.1*ResponsiveSize.blockSizeHorizontal, fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
                             Container(
-                              padding: EdgeInsets.all(10),
-                              margin: EdgeInsets.all(10),
+                              padding: EdgeInsets.all(2.6*ResponsiveSize.blockSizeHorizontal),
+                              margin: EdgeInsets.all(2.6*ResponsiveSize.blockSizeHorizontal),
                               decoration: BoxDecoration(
                                 border: Border.all(color: button_background),
-                                borderRadius: BorderRadius.all(Radius.circular(5)),
+                                borderRadius: BorderRadius.all(Radius.circular(1.28*ResponsiveSize.blockSizeHorizontal)),
                               ),
                               child: Container(
-                                constraints: BoxConstraints(maxHeight: 130),
+                                constraints: BoxConstraints(maxHeight: 33.11*ResponsiveSize.blockSizeHorizontal),
                                 child: _getBidderDetails(),
                               ),
                             ),
@@ -261,15 +261,15 @@ class _AuctionProductDetailsState extends State<AuctionProductDetails> {
                                       });
                                 },
                                 child: Container(
-                                  padding: EdgeInsets.all(15),
+                                  padding: EdgeInsets.all(3.82*ResponsiveSize.blockSizeHorizontal),
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                                    borderRadius: BorderRadius.all(Radius.circular(3.82*ResponsiveSize.blockSizeHorizontal)),
                                     color: button_background,
                                   ),
                                   child: Text(
                                     "Bid Now",
                                     style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 5.1*ResponsiveSize.blockSizeHorizontal,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                     ),
@@ -280,7 +280,7 @@ class _AuctionProductDetailsState extends State<AuctionProductDetails> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(height: 2.6*ResponsiveSize.blockSizeHorizontal,),
                     ],
                   ),
                 ),
@@ -321,7 +321,7 @@ class _AuctionProductDetailsState extends State<AuctionProductDetails> {
               elevation: 5,
               // color: Colors.blue.shade200,
               child: Container(
-                padding: EdgeInsets.all(5),
+                padding: EdgeInsets.all(1.28*ResponsiveSize.blockSizeHorizontal),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -334,26 +334,26 @@ class _AuctionProductDetailsState extends State<AuctionProductDetails> {
                           children: [
                             Text(
                               singleProductDoc["user_name"],
-                              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize: 3.82*ResponsiveSize.blockSizeHorizontal, fontWeight: FontWeight.bold),
                             ),
                             Text(
                               singleProductDoc["user_email"],
                               style: TextStyle(
-                                fontSize: 15,
+                                fontSize: 3.82*ResponsiveSize.blockSizeHorizontal,
                                 fontWeight: FontWeight.w500,),
                             ),
                           ],
                         ),
                         Container(
-                          padding: EdgeInsets.all(10),
+                          padding: EdgeInsets.all(2.6*ResponsiveSize.blockSizeHorizontal),
                           decoration: BoxDecoration(
                             border: Border.all(color: button_background),
-                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            borderRadius: BorderRadius.all(Radius.circular(1.28*ResponsiveSize.blockSizeHorizontal)),
                           ),
                           child: Text(
                             "\u09f3 ${singleProductDoc["bid_price"]}",
                             style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w800),
+                                fontSize: 3.82*ResponsiveSize.blockSizeHorizontal, fontWeight: FontWeight.w800),
                           ),
                         ),
                       ],
