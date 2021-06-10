@@ -145,8 +145,7 @@ class _HomePageDetialsState extends State<HomePageDetials> {
           String remainingTime = "";
           List time_details;
           bool auctionEnd = singleProductDoc["products_auction_completedStatus"];
-
-
+          
           if(auctionEnd == false){
             time_details =  checkForRemainingAuctionEndTime(DateTime.parse(singleProductDoc["products_auction_TotalTime"].toDate().toString()));
             remainingTime ="${time_details[0]}day ${time_details[1]}h ${time_details[2]}m";
@@ -192,23 +191,29 @@ class _HomePageDetialsState extends State<HomePageDetials> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Image.network(
-                              singleProductDoc["products_imageUrl"],
-                              fit: BoxFit.cover,
-                              width: 100,
-                              height: 50,
+                            Align(
+                              alignment: Alignment.center,
+                              child: Image.network(
+                                singleProductDoc["products_imageUrl"],
+                                fit: BoxFit.fill,
+                                width: 100,
+                                height: 50,
+                              ),
                             ),
-                            Text(
-                              singleProductDoc["products_name"],
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
+                            Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                singleProductDoc["products_name"],
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 20),
+                              ),
                             ),
                             Row(
                               mainAxisAlignment: auctionEnd ? MainAxisAlignment.center : MainAxisAlignment.spaceBetween,
                               children: [
                                 auctionEnd ? Container() : Container(
                                   padding: EdgeInsets.all(2),
-                                  decoration: BoxDecoration(color: Colors.red),
+                                  decoration: BoxDecoration(color: button_background),
                                   child: Row(
                                     children: [
                                       Text(
@@ -231,14 +236,15 @@ class _HomePageDetialsState extends State<HomePageDetials> {
                                     Container(
                                       padding: EdgeInsets.all(2),
                                       decoration:
-                                      BoxDecoration(color: Colors.yellow),
+                                      BoxDecoration(color: button_background),
                                       child: Row(
                                         children: [
                                           Text(
                                             auctionEnd ? "Auction is ended" :remainingTime,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w500,
-                                                fontSize: 12),
+                                                fontSize: 12,
+                                                color: Colors.white),
                                           ),
                                           auctionEnd ? Container() : SizedBox(
                                             width: 2,
