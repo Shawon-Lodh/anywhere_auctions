@@ -1,4 +1,4 @@
-# Anywhere Auction ![Anywhere Auctions App Logo](https://github.com/Shawon-Lodh/anywhere_auctions/blob/main/screensort_of_app/App%20Logo.jpg)
+# Anywhere Auction ![Anywhere Auctions App Logo](https://github.com/Shawon-Lodh/anywhere_auctions/blob/main/screensort_of_app/app_logo.jpg)
 
 # Project Overview : 
 ![Project Overview](https://github.com/Shawon-Lodh/anywhere_auctions/blob/main/screensort_of_app/project_overview.jpg)
