@@ -43,7 +43,7 @@ No bid completed            |  After any bid completed
 ![No bid completed](https://github.com/Shawon-Lodh/anywhere_auctions/blob/main/screensort_of_app/dashoard_1.jpg)  |  ![After any bid completed](https://github.com/Shawon-Lodh/anywhere_auctions/blob/main/screensort_of_app/dashboard%20_2.jpg)
 
 ## Log Out
-![Logout](https://github.com/Shawon-Lodh/anywhere_auctions/blob/main/screensort_of_app/home_page_appbar_logout_button.jpg)
+![Logout](https://github.com/Shawon-Lodh/anywhere_auctions/blob/main/screensort_of_app/home_page_appbar_logout_button.jpg) |  ![others]()
 
 
 
