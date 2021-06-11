@@ -6,7 +6,7 @@
 
 
 # Project Overvire : 
-![Project Overview](https://github.com/Shawon-Lodh/anywhere_auctions/blob/main/screensort_of_app/project_overview.png)
+![Project Overview](https://github.com/Shawon-Lodh/anywhere_auctions/blob/main/screensort_of_app/project_overview.jpg)
 
 # Some picture Sample is given below : 
 
